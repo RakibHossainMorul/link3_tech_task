@@ -146,6 +146,9 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
   Future<void> _deleteTask(int id) async {
     await DBHelper.instance.deleteTask(id);
     _fetchTasks();
+    if(context.mounted){
+      Navigator.pop(context);
+    }
     if (context.mounted) {
       Navigator.push(
           context, CupertinoPageRoute(builder: (context) => TaskGroupScreen()));
@@ -210,6 +213,9 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
                         titleController.text, _selectedDateTime!);
 
                     await _fetchTasks();
+                    if(context.mounted){
+                      Navigator.pop(context);
+                    }
                     if(context.mounted){
                       Navigator.push(context, CupertinoPageRoute(builder: (_)=>TaskListScreen(groupId: widget.groupID)));
 

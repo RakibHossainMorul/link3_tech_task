@@ -38,7 +38,7 @@ dependencies:
   awesome_notifications:
   sqflite:
   path:
-  sensors_plus:
+  sensors_plus: ^4.0.2
   syncfusion_flutter_charts:
   intl:
 

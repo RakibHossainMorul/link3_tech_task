@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:async';
+
+import '../main_screen.dart';
 
 class SensorTrackingScreen extends StatefulWidget {
   @override
@@ -60,14 +64,15 @@ class _SensorTrackingScreenState extends State<SensorTrackingScreen> {
   }
 
   // Check if values exceed the threshold
-  void checkForAlert(double x, double y) {
+  Future<void> checkForAlert(double x, double y) async{
     if ((x.abs() > threshold && y.abs() > threshold)) {
-      showAlert();
+      await showAlert();
     }
   }
 
-  void showAlert() {
+  Future<void> showAlert()async {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -87,7 +92,10 @@ class _SensorTrackingScreenState extends State<SensorTrackingScreen> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(context, CupertinoPageRoute(builder: (_)=>SensorTrackingScreen()));
+              },
               child: Text(
                 "OK",
                 style: TextStyle(
@@ -173,7 +181,7 @@ class _SensorTrackingScreenState extends State<SensorTrackingScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, CupertinoPageRoute(builder: (_)=>MainScreen()));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
